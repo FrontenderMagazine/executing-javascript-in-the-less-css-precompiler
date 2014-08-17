@@ -31,14 +31,10 @@ JavaScript может быть оценен только как часть за�
 другие JavaScript блоки:
 
 
-    // Use the backtick character to run JavaScript directly in LESS CSS. We
-    are using a
-    // Function here because LESS calls (my theory) .toString() on the 
-    function and stores
-    // the return value. It seems that only Functions returns their "source 
-    code" when
-    // .toString() is called, which allows us to reuse the JavaScript in 
-    other JavaScript
+    // Use the backtick character to run JavaScript directly in LESS CSS. We are using a
+    // Function here because LESS calls (my theory) .toString() on the function and stores
+    // the return value. It seems that only Functions returns their "source code" when
+    // .toString() is called, which allows us to reuse the JavaScript in other JavaScript
     // code block instances.
     @api: `function(){
      
@@ -53,18 +49,13 @@ JavaScript может быть оценен только как часть за�
             },
      
      
-            // When executing a JavaScript expression, you can only execute 
-    one expression
-            // at a time (ie, no semi-colons). Unless, you are in a function.
-    The point of
-            // the run() function is to allow the calling context a way to 
-    enter a function
-            // context and get access to the API at the same time. The API 
-    is injected as the
+            // When executing a JavaScript expression, you can only execute one expression
+            // at a time (ie, no semi-colons). Unless, you are in a function. The point of
+            // the run() function is to allow the calling context a way to enter a function
+            // context and get access to the API at the same time. The API is injected as the
             // only argument to the given callback.
             // --
-            // NOTE: The callback MUST RETURN A VALUE so that LESS can get 
-    the value of it.
+            // NOTE: The callback MUST RETURN A VALUE so that LESS can get the value of it.
             run: function( callback ) {
      
                 return( callback( api ) );
@@ -74,33 +65,26 @@ JavaScript может быть оценен только как часть за�
         };
      
     
-        // Return the public API. Since this JavaScript expression is return
-    the parent
-        // Function, it will have to invoked in a different JavaScript 
-    context to actually
+        // Return the public API. Since this JavaScript expression is return the parent
+        // Function, it will have to invoked in a different JavaScript context to actually
         // get access to the API.
         return( api );
     
     }` ;
     
     
-    // I assign the API the global namespace, "api". This could have been done
-    in the
-    // previous JavaScript code block; but, I kind of liked the idea of 
-    breaking it out into
+    // I assign the API the global namespace, "api". This could have been done in the
+    // previous JavaScript code block; but, I kind of liked the idea of breaking it out into
     // its own rsponsability.
     // --
-    // NOTE: I am using a self-invoking function here to help ensure that 
-    "this" points to
-    // the global context and not to the context of the evaluation (if its 
-    different).
+    // NOTE: I am using a self-invoking function here to help ensure that "this" points to
+    // the global context and not to the context of the evaluation (if its different).
     @apiGlobalInjector: `(function() {
     
         // Inject the API and store it in the global object.
         this.api = (@{api})();
      
-        // The JavaScript HAS TO RETURN something so LESS CSS can assigne the
-    variable value.
+        // The JavaScript HAS TO RETURN something so LESS CSS can assigne the variable value.
         return( "Injected in global" );
     
     })()` ;
