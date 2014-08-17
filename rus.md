@@ -32,13 +32,13 @@ JavaScript может быть оценен только как часть за�
 
 
     // Use the backtick character to run JavaScript directly in LESS CSS. We
-are using a
+    are using a
     // Function here because LESS calls (my theory) .toString() on the 
-function and stores
+    function and stores
     // the return value. It seems that only Functions returns their "source 
-code" when
+    code" when
     // .toString() is called, which allows us to reuse the JavaScript in 
-other JavaScript
+    other JavaScript
     // code block instances.
     @api: `function(){
      
@@ -54,17 +54,17 @@ other JavaScript
      
      
             // When executing a JavaScript expression, you can only execute 
-one expression
+    one expression
             // at a time (ie, no semi-colons). Unless, you are in a function.
- The point of
+    The point of
             // the run() function is to allow the calling context a way to 
-enter a function
+    enter a function
             // context and get access to the API at the same time. The API 
-is injected as the
+    is injected as the
             // only argument to the given callback.
             // --
             // NOTE: The callback MUST RETURN A VALUE so that LESS can get 
-the value of it.
+    the value of it.
             run: function( callback ) {
      
                 return( callback( api ) );
@@ -75,9 +75,9 @@ the value of it.
      
     
         // Return the public API. Since this JavaScript expression is return
- the parent
+    the parent
         // Function, it will have to invoked in a different JavaScript 
-context to actually
+    context to actually
         // get access to the API.
         return( api );
     
@@ -85,22 +85,22 @@ context to actually
     
     
     // I assign the API the global namespace, "api". This could have been done
- in the
+    in the
     // previous JavaScript code block; but, I kind of liked the idea of 
-breaking it out into
+    breaking it out into
     // its own rsponsability.
     // --
     // NOTE: I am using a self-invoking function here to help ensure that 
-"this" points to
+    "this" points to
     // the global context and not to the context of the evaluation (if its 
-different).
+    different).
     @apiGlobalInjector: `(function() {
     
         // Inject the API and store it in the global object.
         this.api = (@{api})();
      
         // The JavaScript HAS TO RETURN something so LESS CSS can assigne the
- variable value.
+    variable value.
         return( "Injected in global" );
     
     })()` ;
